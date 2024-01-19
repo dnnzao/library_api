@@ -19,11 +19,12 @@ if ENV["RAILS_ENV"] == "production"
 end
 
 # SSL Configuration
-ssl_bind '0.0.0.0', '3000', {
-  key: 'path/to/private_key.pem',
-  cert: 'path/to/certificate.pem',
-  verify_mode: 'none' # Change this to 'peer' in production for a secure setup
-}
+#ssl_bind '127.0.0.1', '3000', {
+#  key: 'C:\Ruby33-x64\lib\ruby\gems\3.3.0\gems\puma-6.4.2\private_key.pem',
+#  cert: 'C:\Ruby33-x64\lib\ruby\gems\3.3.0\gems\puma-6.4.2\certificate.pem',
+#  verify_mode: 'none'
+#}
+
 
 
 # Specifies the `worker_timeout` threshold that Puma will use to wait before

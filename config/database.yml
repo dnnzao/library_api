@@ -19,8 +19,8 @@ default: &default
   username: deniojr
   password: abcd
   host: localhost
-  port: 3000
-  sslmode: require
+  port: 5432
+  sslmode: disable
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -28,6 +28,7 @@ default: &default
 development:
   <<: *default
   database: books_development
+  sslmode: disable
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
