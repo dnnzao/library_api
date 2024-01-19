@@ -18,12 +18,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_172221) do
     t.string "book_name"
     t.string "author"
     t.date "published_date"
-    t.bigint "categories_id", null: false
-    t.bigint "publishers_id", null: false
+    t.bigint "category_id", null: false
+    t.bigint "publisher_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["categories_id"], name: "index_books_on_categories_id"
-    t.index ["publishers_id"], name: "index_books_on_publishers_id"
+    t.index ["category_id"], name: "index_books_on_category_id"
+    t.index ["publisher_id"], name: "index_books_on_publisher_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -38,6 +38,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_172221) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "books", "categories", column: "categories_id"
-  add_foreign_key "books", "publishers", column: "publishers_id"
+  add_foreign_key "books", "categories"
+  add_foreign_key "books", "publishers"
 end

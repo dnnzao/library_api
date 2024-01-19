@@ -2,9 +2,18 @@ class BooksController < ApplicationController
   before_action :set_book, only: %i[show update destroy]
 
   def index
-    @books = Book.all
-    render json: @books
+    if params[:id].present?
+      book_ids = params[:id].split(',')
+      @books = Book.where(id: book_ids)
+    elsif params[:book_name].present?
+      @books = Book.where('lower(book_name) = ?', params[:book_name].downcase)
+    else
+      @books = Book.all
+    end
+
+    render json: @books, include: [:category, :publisher]
   end
+
 
   def show
     render json: @book

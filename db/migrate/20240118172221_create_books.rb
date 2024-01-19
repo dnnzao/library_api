@@ -4,8 +4,8 @@ class CreateBooks < ActiveRecord::Migration[7.1]
       t.string :book_name
       t.string :author
       t.date :published_date
-      t.references :categories, null: false, foreign_key: true
-      t.references :publishers, null: false, foreign_key: true
+      t.references :category, null: false, foreign_key: true
+      t.references :publisher, null: false, foreign_key: true
       t.timestamps
     end
   end

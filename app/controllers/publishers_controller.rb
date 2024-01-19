@@ -1,12 +1,22 @@
+# app/controllers/publishers_controller.rb
 class PublishersController < ApplicationController
   before_action :set_publisher, only: %i[show update destroy]
 
   def index
-    @publishers = Publisher.all
-    render json: @publishers
+    if params[:id].present?
+      category_ids = params[:id].split(',')
+      @categories = Category.where(id: category_ids)
+    elsif params[:category_name].present?
+      @categories = Category.where('lower(category) = ?', params[:category_name].downcase)
+    else
+      @categories = Category.all
+    end
+
+    render json: @categories, include: [:books]
   end
 
-  def show
+  def show_by_id
+    @publisher = Publisher.find(params[:id])
     render json: @publisher
   end
 
