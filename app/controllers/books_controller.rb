@@ -1,3 +1,4 @@
+# app/controllers/books_controller.rb
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show update destroy]
 
@@ -13,7 +14,6 @@ class BooksController < ApplicationController
 
     render json: @books, include: [:category, :publisher]
   end
-
 
   def show
     render json: @book
@@ -40,6 +40,26 @@ class BooksController < ApplicationController
   def destroy
     @book.destroy
     head :no_content
+  end
+
+  def search_by_name_or_id
+    search_param = params[:search_param]
+
+    if search_param.present?
+      book = if search_param.to_i.to_s == search_param
+               Book.find_by(id: search_param.to_i)
+             else
+               Book.where('lower(book_name) = ?', search_param.downcase).first
+             end
+
+      if book
+        render json: book, include: [:category, :publisher]
+      else
+        render json: { error: 'Book not found' }, status: :not_found
+      end
+    else
+      render json: { error: 'Search parameter is required' }, status: :bad_request
+    end
   end
 
   private

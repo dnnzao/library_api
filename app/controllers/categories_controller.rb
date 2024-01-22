@@ -4,15 +4,15 @@ class CategoriesController < ApplicationController
 
   def index
     if params[:id].present?
-      publisher_ids = params[:id].split(',')
-      @publishers = Publisher.where(id: publisher_ids)
-    elsif params[:publisher_name].present?
-      @publishers = Publisher.where('lower(publisher_name) = ?', params[:publisher_name].downcase)
+      category_ids = params[:id].split(',')
+      @categories = Category.where(id: category_ids)
+    elsif params[:category_name].present?
+      @categories = Category.where('lower(category) = ?', params[:category_name].downcase)
     else
-      @publishers = Publisher.all
+      @categories = Category.all
     end
 
-    render json: @publishers, include: [:books]
+    render json: @categories, include: [:books]
   end
 
   def show
@@ -45,6 +45,26 @@ class CategoriesController < ApplicationController
   def destroy
     @category.destroy
     head :no_content
+  end
+
+  def search_by_name_or_id
+    search_param = params[:search_param]
+
+    if search_param.present?
+      category = if search_param.to_i.to_s == search_param
+                   Category.find_by(id: search_param.to_i)
+                 else
+                   Category.where('lower(category) = ?', search_param.downcase).first
+                 end
+
+      if category
+        render json: category, include: [:books]
+      else
+        render json: { error: 'Category not found' }, status: :not_found
+      end
+    else
+      render json: { error: 'Search parameter is required' }, status: :bad_request
+    end
   end
 
   private

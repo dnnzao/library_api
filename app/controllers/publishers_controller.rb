@@ -4,18 +4,23 @@ class PublishersController < ApplicationController
 
   def index
     if params[:id].present?
-      category_ids = params[:id].split(',')
-      @categories = Category.where(id: category_ids)
-    elsif params[:category_name].present?
-      @categories = Category.where('lower(category) = ?', params[:category_name].downcase)
+      publisher_ids = params[:id].split(',')
+      @publishers = Publisher.where(id: publisher_ids)
+    elsif params[:publisher_name].present?
+      @publishers = Publisher.where('lower(publisher_name) = ?', params[:publisher_name].downcase)
     else
-      @categories = Category.all
+      @publishers = Publisher.all
     end
 
-    render json: @categories, include: [:books]
+    render json: @publishers, include: [:books]
   end
 
   def show_by_id
+    @publisher = Publisher.find(params[:id])
+    render json: @publisher
+  end
+
+  def show
     @publisher = Publisher.find(params[:id])
     render json: @publisher
   end
@@ -41,6 +46,26 @@ class PublishersController < ApplicationController
   def destroy
     @publisher.destroy
     head :no_content
+  end
+
+  def search_by_name_or_id
+    search_param = params[:search_param]
+
+    if search_param.present?
+      publisher = if search_param.to_i.to_s == search_param
+                    Publisher.find_by(id: search_param.to_i)
+                  else
+                    Publisher.where('lower(publisher_name) = ?', search_param.downcase).first
+                  end
+
+      if publisher
+        render json: publisher, include: [:books]
+      else
+        render json: { error: 'Publisher not found' }, status: :not_found
+      end
+    else
+      render json: { error: 'Search parameter is required' }, status: :bad_request
+    end
   end
 
   private
