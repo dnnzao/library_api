@@ -6,7 +6,11 @@ class BooksController < ApplicationController
     category_names = params[:category] || []
     publisher_name = params[:publisher] || []
 
-    @books = Book.filter_by_categories_and_publisher(category_names, publisher_name)
+    if category_names.present? || publisher_name.present?
+      @books = Book.filter_by_categories_and_publisher(category_names, publisher_name)
+    else
+      @books = Book.all
+    end
 
     render json: @books, include: [:category, :publisher]
   end

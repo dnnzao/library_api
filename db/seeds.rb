@@ -33,5 +33,13 @@ Book.create(book_name: 'The Silence of the Lambs', author: 'Thomas Harris', publ
 Book.create(book_name: 'Sapiens: A Brief History of Humankind', author: 'Yuval Noah Harari', published_date: Date.parse('2011-11-15'), category: science_category, publisher: publisher2)
 Book.create(book_name: 'The Selfish Gene', author: 'Richard Dawkins', published_date: Date.parse('1976-05-01'), category: science_category, publisher: publisher1)
 Book.create(book_name: 'The Innovators', author: 'Walter Isaacson', published_date: Date.parse('2014-10-07'), category: science_category, publisher: publisher2)
+Book.create(book_name: 'Fantasy Book from Simon & Schuster', author: 'Author 1', published_date: Date.parse('2023-01-01'), category: fantasy_category, publisher: publisher3)
+Book.create(book_name: 'Mystery Book from Simon & Schuster', author: 'Author 2', published_date: Date.parse('2023-02-01'), category: mystery_category, publisher: publisher3)
+Book.create(book_name: 'Sci-fi Book from Simon & Schuster', author: 'Author 3', published_date: Date.parse('2023-03-01'), category: sci_fi_category, publisher: publisher3)
+Book.create(book_name: 'Science Book from Simon & Schuster', author: 'Author 4', published_date: Date.parse('2023-04-01'), category: science_category, publisher: publisher3)
+Book.create(book_name: 'Fantasy Book from Macmillan Publishers', author: 'Author 5', published_date: Date.parse('2023-05-01'), category: fantasy_category, publisher: publisher4)
+Book.create(book_name: 'Mystery Book from Macmillan Publishers', author: 'Author 6', published_date: Date.parse('2023-06-01'), category: mystery_category, publisher: publisher4)
+Book.create(book_name: 'Sci-fi Book from Macmillan Publishers', author: 'Author 7', published_date: Date.parse('2023-07-01'), category: sci_fi_category, publisher: publisher4)
+Book.create(book_name: 'Science Book from Macmillan Publishers', author: 'Author 8', published_date: Date.parse('2023-08-01'), category: science_category, publisher: publisher4)
 
 puts 'Seed data has been created.'
