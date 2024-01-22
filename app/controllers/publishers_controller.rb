@@ -15,11 +15,6 @@ class PublishersController < ApplicationController
     render json: @publishers, include: [:books]
   end
 
-  def show_by_id
-    @publisher = Publisher.find(params[:id])
-    render json: @publisher
-  end
-
   def show
     @publisher = Publisher.find(params[:id])
     render json: @publisher
