@@ -1,16 +1,16 @@
 # db/seeds.rb
 
 # Categories
-fantasy_category = Category.find_or_create_by(category: 'Fantasy')
-sci_fi_category = Category.find_or_create_by(category: 'Sci-Fi')
-mystery_category = Category.find_or_create_by(category: 'Mystery')
-science_category = Category.find_or_create_by(category: 'Science')
+fantasy_category = Category.find_or_create_by(name: 'Fantasy')
+sci_fi_category = Category.find_or_create_by(name: 'Sci-Fi')
+mystery_category = Category.find_or_create_by(name: 'Mystery')
+science_category = Category.find_or_create_by(name: 'Science')
 
 # Publishers
-publisher1 = Publisher.find_or_create_by(publisher_name: 'Penguin Random House')
-publisher2 = Publisher.find_or_create_by(publisher_name: 'HarperCollins')
-publisher3 = Publisher.find_or_create_by(publisher_name: 'Simon & Schuster')
-publisher4 = Publisher.find_or_create_by(publisher_name: 'Macmillan Publishers')
+publisher1 = Publisher.find_or_create_by(name: 'Penguin Random House')
+publisher2 = Publisher.find_or_create_by(name: 'HarperCollins')
+publisher3 = Publisher.find_or_create_by(name: 'Simon & Schuster')
+publisher4 = Publisher.find_or_create_by(name: 'Macmillan Publishers')
 
 # Books
 Book.create(book_name: 'The Hobbit', author: 'J.R.R. Tolkien', published_date: Date.parse('1937-09-21'), category: fantasy_category, publisher: publisher1)
