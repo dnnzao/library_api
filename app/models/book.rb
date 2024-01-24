@@ -3,12 +3,12 @@ class Book < ApplicationRecord
   belongs_to :category
   belongs_to :publisher
 
-  def self.filter_books(category_ids, publisher_ids, book_identifiers)
+  def self.filter_books(category_ids, publisher_ids, book_names)
     books = all
 
     books = filter_by_categories(books, category_ids)
     books = filter_by_publishers(books, publisher_ids)
-    books = filter_by_name_and_ids(books, book_identifiers)
+    books = filter_by_names(books, book_names)
 
     books
   end
@@ -29,15 +29,10 @@ class Book < ApplicationRecord
     books.where(publisher_id: publisher_ids)
   end
 
-  def self.filter_by_name_and_ids(books, book_identifiers)
-    return books unless book_identifiers.present?
+  def self.filter_by_names(books, book_names)
+    return books unless book_names.present?
 
-    book_identifiers = book_identifiers.split(',')
-    book_ids = book_identifiers.select { |id| id.match?(/^\d+$/) }
-    book_names = book_identifiers - book_ids
-
-    books = books.where('lower(book_name) IN (?) OR id IN (?)', book_names.map(&:downcase), book_ids) if book_identifiers.present?
-
-    books
+    book_names = book_names.split(',')
+    books.where('lower(book_name) IN (?)', book_names.map(&:downcase))
   end
 end
