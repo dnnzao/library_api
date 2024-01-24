@@ -1,13 +1,17 @@
 # app/models/book.rb
 class Book < ApplicationRecord
   include PgSearch::Model
-  pg_search_scope :search_by_name, against: :book_name, using: {
-    tsearch: {
-      prefix: true, any_word: true
+
+  pg_search_scope :search_by_name, lambda { |book_name|
+   {
+      against: :book_name,
+      query: book_name.split(',').map { |name| "%#{name.downcase}%" }.join(' | '),
+      using: { tsearch: { prefix: true }},
+      order_within_rank: "book_name ASC"
     }
   }
 
-  multisearchable against: :book_name
+  multisearchable against: :book
   belongs_to :category
   belongs_to :publisher
 
@@ -36,20 +40,4 @@ class Book < ApplicationRecord
     publisher_ids = publisher_ids.split(',')
     books.where(publisher_id: publisher_ids)
   end
-
-  def self.search_by_name(book_names)
-    return all unless book_names.present?
-
-    conditions = []
-    parameters = {}
-
-    book_names.split(',').each_with_index do |name, index|
-      condition = "lower(book_name) ILIKE :name_#{index}"
-      conditions << condition
-      parameters[:"name_#{index}"] = "%#{name.downcase}%"
-    end
-
-    where(conditions.join(' OR '), parameters)
-  end
-
 end
