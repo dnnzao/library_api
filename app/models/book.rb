@@ -2,6 +2,9 @@
 class Book < ApplicationRecord
   include PgSearch::Model
 
+  pg_search_scope :search_by_name, against: :book_name
+
+=begin
   pg_search_scope :search_by_name, lambda { |book_name|
    {
       against: :book_name,
@@ -10,8 +13,8 @@ class Book < ApplicationRecord
       order_within_rank: "book_name ASC"
     }
   }
-
-  multisearchable against: :book
+=end
+multisearchable against: [:book_name]
   belongs_to :category
   belongs_to :publisher
 
@@ -41,3 +44,8 @@ class Book < ApplicationRecord
     books.where(publisher_id: publisher_ids)
   end
 end
+
+
+=begin
+  pg_search_scope :search_by_name, against: :book_name
+=end

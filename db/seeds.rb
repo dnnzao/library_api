@@ -1,5 +1,10 @@
 # db/seeds.rb
 
+# Clear existing data
+Book.delete_all
+Category.delete_all
+Publisher.delete_all
+
 # Categories
 fantasy_category = Category.find_or_create_by(name: 'Fantasy')
 sci_fi_category = Category.find_or_create_by(name: 'Sci-Fi')
@@ -21,7 +26,9 @@ Book.create(book_name: 'The Girl with the Dragon Tattoo', author: 'Stieg Larsson
 Book.create(book_name: 'Sherlock Holmes: The Hound of the Baskervilles', author: 'Arthur Conan Doyle', published_date: Date.parse('1902-08-25'), category: mystery_category, publisher: publisher2)
 Book.create(book_name: 'A Brief History of Time', author: 'Stephen Hawking', published_date: Date.parse('1988-04-01'), category: science_category, publisher: publisher1)
 Book.create(book_name: 'Cosmos', author: 'Carl Sagan', published_date: Date.parse('1980-09-28'), category: science_category, publisher: publisher2)
-Book.create(book_name: 'The Lord of the Rings', author: 'J.R.R. Tolkien', published_date: Date.parse('1954-07-29'), category: fantasy_category, publisher: publisher1)
+Book.create(book_name: 'The Lord of the Rings, Part One: The Fellowship of the Ring', author: 'J.R.R. Tolkien', published_date: Date.parse('1954-07-29'), category: fantasy_category, publisher: publisher1)
+Book.create(book_name: 'The Lord of the Rings, Part Two: The Two Towers', author: 'J.R.R. Tolkien', published_date: Date.parse('1954-07-29'), category: fantasy_category, publisher: publisher1)
+Book.create(book_name: 'The Lord of the Rings, Part Three: The Return of the King', author: 'J.R.R. Tolkien', published_date: Date.parse('1954-07-29'), category: fantasy_category, publisher: publisher1)
 Book.create(book_name: 'The Chronicles of Narnia: The Lion, the Witch and the Wardrobe', author: 'C.S. Lewis', published_date: Date.parse('1950-10-16'), category: fantasy_category, publisher: publisher2)
 Book.create(book_name: 'Game of Thrones', author: 'George R.R. Martin', published_date: Date.parse('1996-08-06'), category: fantasy_category, publisher: publisher1)
 Book.create(book_name: 'Foundation', author: 'Isaac Asimov', published_date: Date.parse('1951-05-01'), category: sci_fi_category, publisher: publisher2)
