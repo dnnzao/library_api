@@ -12,7 +12,7 @@ gem 'actionmailer', '7.1.3'
 gem 'actiontext', '7.1.3'
 gem 'activestorage', '7.1.3'
 gem 'railties', '7.1.3'
-gem 'pg_search'
+#gem 'pg_search'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"

@@ -3,11 +3,12 @@ class BooksController < ApplicationController
   before_action :set_book, only: %i[show update destroy]
 
   def index
-    category_names = params[:category] || []
-    publisher_name = params[:publisher] || []
+    category_identifiers = params[:category] || []
+    publisher_identifiers = params[:publisher] || []
+    book_identifiers = params[:book] || []
 
-    if category_names.present? || publisher_name.present?
-      @books = Book.filter_by_categories_and_publisher(category_names, publisher_name)
+    if category_identifiers.present? || publisher_identifiers.present? || book_identifiers.present?
+      @books = Book.filter_books(category_identifiers, publisher_identifiers, book_identifiers)
     else
       @books = Book.all
     end
