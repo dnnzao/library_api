@@ -7,7 +7,7 @@ class Book < ApplicationRecord
     }
   }
 
-  multisearchable against: [:book_name, :author]
+  multisearchable against: :book_name
   belongs_to :category
   belongs_to :publisher
 
@@ -40,10 +40,16 @@ class Book < ApplicationRecord
   def self.search_by_name(book_names)
     return all unless book_names.present?
 
-    conditions = book_names.split(',').map do |name|
-      "lower(book_name) ILIKE :name#{name.hash}"
+    conditions = []
+    parameters = {}
+
+    book_names.split(',').each_with_index do |name, index|
+      condition = "lower(book_name) ILIKE :name_#{index}"
+      conditions << condition
+      parameters[:"name_#{index}"] = "%#{name.downcase}%"
     end
 
-    where(conditions.join(' OR '), book_names.split(',').map { |name| ["name#{name.hash}".to_sym, "%#{name.downcase}%"] }.to_h)
+    where(conditions.join(' OR '), parameters)
   end
+
 end
