@@ -2,10 +2,10 @@
 class Book < ApplicationRecord
   include PgSearch::Model
 
-  pg_search_scope :search_by_name, lambda { |book_name|
-   {
+  pg_search_scope :search_by_name, lambda { |book_names|
+    {
       against: :book_name,
-      query: book_name.split(',').map { |name| "%#{name.downcase}%" }.join(' | '),
+      query: book_names.split(',').map { |name| "%#{name.downcase}%" }.join(' | '),
       using: { tsearch: { prefix: true }},
       order_within_rank: "book_name ASC"
     }
@@ -18,9 +18,14 @@ class Book < ApplicationRecord
   def self.filter_books(category_ids, publisher_ids, book_names)
     books = all
 
-    books = filter_by_categories(books, category_ids)
-    books = filter_by_publishers(books, publisher_ids)
-    books = search_by_name(book_names)
+    # Filter by categories if category_ids are provided
+    books = filter_by_categories(books, category_ids) if category_ids.present?
+
+    # Filter by publishers if publisher_ids are provided
+    books = filter_by_publishers(books, publisher_ids) if publisher_ids.present?
+
+    # Filter by book names if book_names are provided
+    books = search_by_name(book_names) if book_names.present?
 
     books
   end
@@ -41,8 +46,3 @@ class Book < ApplicationRecord
     books.where(publisher_id: publisher_ids)
   end
 end
-
-
-=begin
-  pg_search_scope :search_by_name, against: :book_name
-=end

@@ -7,20 +7,42 @@ class BooksController < ApplicationController
     publisher_ids = params[:publisher] || []
     book_identifiers = params[:book] || []
 
-    if category_ids.present? || publisher_ids.present?
-      @books = Book.filter_books(category_ids, publisher_ids, book_identifiers)
-    elsif book_identifiers.present?
-      @books = Book.search_by_name(book_identifiers)
-    else
-      @books = Book.all
-    end
+    begin
+      if category_ids.present? || publisher_ids.present?
+        # Ensure that your filter_books method filters books based on category and publisher IDs correctly.
+        @books = Book.filter_books(category_ids, publisher_ids, book_identifiers)
 
-    render json: @books, include: [:category, :publisher]
+        if @books.empty?
+          render json: { error: 'No books found for the selected criteria' }, status: :not_found
+        else
+          render json: @books, include: [:category, :publisher], status: :ok
+        end
+      elsif book_identifiers.present?
+        # Ensure that your search_by_name method filters books based on book identifiers (e.g., name) correctly.
+        @books = Book.search_by_name(book_identifiers)
+
+        if @books.empty?
+          render json: { error: 'No books found with the provided name(s)' }, status: :not_found
+        else
+          render json: @books, include: [:category, :publisher], status: :ok
+        end
+      else
+        # This block should return all books when no filters are applied.
+        @books = Book.all
+        render json: @books, include: [:category, :publisher], status: :ok
+      end
+    rescue StandardError => e
+      render json: { error: "An error occurred: #{e.message}" }, status: :internal_server_error
+    end
   end
 
 
   def show
-    render json: @book, include: [:category, :publisher]
+    if @book
+      render json: @book, include: [:category, :publisher]
+    else
+      render json: { error: 'Book not found' }, status: :not_found
+    end
   end
 
   def create
@@ -34,22 +56,30 @@ class BooksController < ApplicationController
   end
 
   def update
-    if @book.update(book_params)
-      render json: @book
+    if @book
+      if @book.update(book_params)
+        render json: @book
+      else
+        render json: @book.errors, status: :unprocessable_entity
+      end
     else
-      render json: @book.errors, status: :unprocessable_entity
+      render json: { error: 'Book not found' }, status: :not_found
     end
   end
 
   def destroy
-    @book.destroy
-    head :no_content
+    if @book
+      @book.destroy
+      head :no_content
+    else
+      render json: { error: 'Book not found' }, status: :not_found
+    end
   end
 
   private
 
   def set_book
-    @book = Book.find(params[:id])
+    @book = Book.find_by(id: params[:id])
   end
 
   def book_params
