@@ -5,7 +5,7 @@ class BooksController < ApplicationController
   def index
     category_ids = params[:categories] || []
     publisher_ids = params[:publishers] || []
-    book_names = params[:book] || []
+    book_names = params[:books] || []
 
     begin
       if category_ids.present? || publisher_ids.present?

@@ -3,6 +3,7 @@ class Book < ApplicationRecord
   include PgSearch::Model
 
   pg_search_scope :search_by_name, lambda { |book_names|
+    return {} if book_names.blank?  # Return an empty search scope if no book names are provided
     {
       against: :book_name,
       query: book_names.split(',').map { |name| "%#{name.downcase}%" }.join(' | '),
