@@ -3,23 +3,23 @@ class BooksController < ApplicationController
   before_action :set_book, only: %i[show update destroy]
 
   def index
-    category_ids = params[:category] || []
-    publisher_ids = params[:publisher] || []
-    book_identifiers = params[:book] || []
+    category_ids = params[:categories] || []
+    publisher_ids = params[:publishers] || []
+    book_names = params[:book] || []
 
     begin
       if category_ids.present? || publisher_ids.present?
         # Ensure that your filter_books method filters books based on category and publisher IDs correctly.
-        @books = Book.filter_books(category_ids, publisher_ids, book_identifiers)
+        @books = Book.filter_books(category_ids, publisher_ids, book_names)
 
         if @books.empty?
           render json: { error: 'No books found for the selected criteria' }, status: :not_found
         else
           render json: @books, include: [:category, :publisher], status: :ok
         end
-      elsif book_identifiers.present?
-        # Ensure that your search_by_name method filters books based on book identifiers (e.g., name) correctly.
-        @books = Book.search_by_name(book_identifiers)
+      elsif book_names.present?
+        # Ensure that your search_by_name method filters books based on book names correctly.
+        @books = Book.search_by_name(book_names)
 
         if @books.empty?
           render json: { error: 'No books found with the provided name(s)' }, status: :not_found
