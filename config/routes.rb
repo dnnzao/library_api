@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resources :books
   resources :publishers
   resources :categories
+  resources :users
+
 
   namespace :api do
     namespace :v1 do
