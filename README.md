@@ -42,4 +42,4 @@ You can search for books in the library using various parameters:
   - URL: `localhost:3000/books?publishers={X,Y}`
 
 You can also search books from multiple publishers and categories within those publishers:
-localhost:3000/books?categories={X,Y}&publishers={X,Y}
+`localhost:3000/books?categories={X,Y}&publishers={X,Y}`
