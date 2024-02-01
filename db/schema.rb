@@ -34,10 +34,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_29_184154) do
 
   create_table "pg_search_documents", force: :cascade do |t|
     t.text "content"
+    t.bigint "book_id"
     t.string "searchable_type"
     t.bigint "searchable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_pg_search_documents_on_book_id"
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable"
   end
 

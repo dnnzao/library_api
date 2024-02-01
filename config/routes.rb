@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  # config/routes.rb
   mount_devise_token_auth_for 'User', at: 'auth', controllers: {
     registrations: 'registrations'
   }
@@ -11,11 +10,9 @@ Rails.application.routes.draw do
   resources :categories
   resources :users
 
-
   namespace :api do
     namespace :v1 do
       post 'send_test_email' => 'email#send_test_email'
     end
   end
-
 end

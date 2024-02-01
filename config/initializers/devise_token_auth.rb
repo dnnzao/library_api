@@ -1,3 +1,5 @@
+#config/intializers/devise_token_auth.rb
+
 # frozen_string_literal: true
 
 DeviseTokenAuth.setup do |config|
@@ -57,15 +59,16 @@ DeviseTokenAuth.setup do |config|
   # By default, only Bearer Token authentication is implemented out of the box.
   # If, however, you wish to integrate with legacy Devise authentication, you can
   # do so by enabling this flag. NOTE: This feature is highly experimental!
-  # config.enable_standard_devise_support = false
+  config.enable_standard_devise_support = true
 
   # By default DeviseTokenAuth will not send confirmation email, even when including
   # devise confirmable module. If you want to use devise confirmable module and
   # send email, set it to true. (This is a setting for compatibility)
-  # config.send_confirmation_email = true
+  config.send_confirmation_email = true
 
   # If using rails-api, you may want to tell devise to not use ActionDispatch::Flash
   # middleware b/c rails-api does not include it.
   # See: https://stackoverflow.com/q/19600905/806956
   # config.navigational_formats = [:json]
+
 end

@@ -6,16 +6,21 @@ class UsersController < ApplicationController
   end
 
   def show
+    if @users
+      render json: @users
+    else
+      render json: { error: 'Book not found' }, status: :not_found
+    end
   end
 
   def new
-    @user = User.new
+    @users = User.new
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
-      redirect_to @user, notice: 'User was successfully created.'
+    @users = User.new(user_params)
+    if @users.save
+      redirect_to @users, notice: 'User was successfully created.'
     else
       render :new
     end
@@ -25,22 +30,22 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params)
-      redirect_to @user, notice: 'User was successfully updated.'
+    if @users.update(user_params)
+      redirect_to @users, notice: 'User was successfully updated.'
     else
       render :edit
     end
   end
 
   def destroy
-    @user.destroy
+    @users.destroy
     redirect_to users_url, notice: 'User was successfully destroyed.'
   end
 
   private
 
   def set_user
-    @user = User.find(params[:id])
+    @users = User.find(params[:id])
   end
 
   def user_params

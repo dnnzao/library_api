@@ -14,6 +14,7 @@ gem 'activestorage', '7.1.3'
 gem 'railties', '7.1.3'
 gem 'pg_search'
 gem 'devise_token_auth', '>= 1.0.0', git: "https://github.com/lynndylanhurley/devise_token_auth"
+gem 'rack-cors'
 
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
