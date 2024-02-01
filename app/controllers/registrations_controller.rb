@@ -20,11 +20,6 @@ class RegistrationsController < DeviseTokenAuth::RegistrationsController
   end
 
   def create
-    @users = User.new(sign_up_params)
-    if @users.save
-      render json: @users, status: :created
-    else
-      render json: { errors: @users.errors.full_messages }, status: :unprocessable_entity
-    end
+    super
   end
 end

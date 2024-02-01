@@ -3,21 +3,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-  validates :email, :uniqueness => {:allow_blank => true}
+  # after_create :send_confirmation_email
 
-  # validates_presence_of :email, if: :email_required?
+  # def send_confirmation_email
+  #   # Generate the confirmation link
+  #   confirmation_url = "http://yourapp.com/confirm/#{self.id}"
 
-  # validates_presence_of :password, if: :password_required?
-  # validates_confirmation_of :password, if: :password_required?
-
-  # protected
-
-  # def email_required?
-  #   true && profile_updation.blank?
-  # end
-
-  # def password_required?
-  #   !password.nil? || !password_confirmation.nil?
-
+  #   # Send the confirmation email using Action Mailer
+  #   UserMailer.confirmation_email(self, confirmation_url).deliver_now
   # end
 end

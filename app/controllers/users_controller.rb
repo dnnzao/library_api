@@ -6,11 +6,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    if @users
-      render json: @users
-    else
-      render json: { error: 'Book not found' }, status: :not_found
-    end
+    @users = User.all
   end
 
   def new
@@ -49,7 +45,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    # Define the permitted parameters for user creation and update here.
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 end
