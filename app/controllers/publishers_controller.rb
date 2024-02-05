@@ -1,5 +1,5 @@
 # app/controllers/publishers_controller.rb
-class PublishersController < ApplicationController
+class PublishersController < ActionController::API
   before_action :set_publisher, only: %i[show update destroy]
 
   def index

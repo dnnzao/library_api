@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby '3.3.0'
+ruby '3.0.2'
 
 gem 'pg', "~> 1.1"
 gem 'rails', '7.1.3'
@@ -15,6 +15,8 @@ gem 'railties', '7.1.3'
 gem 'pg_search'
 gem 'devise_token_auth', '>= 1.0.0', git: "https://github.com/lynndylanhurley/devise_token_auth"
 gem 'rack-cors'
+gem 'psych', '3.3.0'
+gem 'mailcatcher'
 
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
@@ -30,7 +32,7 @@ gem 'rack-cors'
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "tzinfo-data", platforms: %i[ jruby ]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false

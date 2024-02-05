@@ -87,12 +87,13 @@ GEM
     base64 (0.2.0)
     bcrypt (3.1.20)
     bigdecimal (3.1.6)
-    bootsnap (1.17.1)
+    bootsnap (1.18.3)
       msgpack (~> 1.2)
     builder (3.2.4)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     crass (1.0.6)
+    daemons (1.4.1)
     date (3.3.4)
     debug (1.9.1)
       irb (~> 1.10)
@@ -106,14 +107,20 @@ GEM
     drb (2.2.0)
       ruby2_keywords
     erubi (1.12.0)
+    eventmachine (1.0.9.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    haml (6.3.0)
+      temple (>= 0.8.2)
+      thor
+      tilt
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     io-console (0.7.2)
     irb (1.11.1)
       rdoc
       reline (>= 0.4.2)
+    json (2.7.1)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -122,11 +129,22 @@ GEM
       net-imap
       net-pop
       net-smtp
+    mailcatcher (0.2.4)
+      eventmachine
+      haml
+      i18n
+      json
+      mail
+      sinatra
+      skinny (>= 0.1.2)
+      sqlite3-ruby
+      thin
     marcel (1.0.2)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.5)
     minitest (5.21.2)
     msgpack (1.7.2)
+    mustermann (3.0.0)
+      ruby2_keywords (~> 0.0.1)
     mutex_m (0.2.0)
     net-imap (0.4.9.1)
       date
@@ -138,22 +156,33 @@ GEM
     net-smtp (0.4.0.1)
       net-protocol
     nio4r (2.7.0)
-    nokogiri (1.16.0)
-      mini_portile2 (~> 2.8.2)
+    nokogiri (1.16.0-aarch64-linux)
+      racc (~> 1.4)
+    nokogiri (1.16.0-arm-linux)
+      racc (~> 1.4)
+    nokogiri (1.16.0-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.16.0-x86-linux)
+      racc (~> 1.4)
+    nokogiri (1.16.0-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.16.0-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     pg (1.5.4)
     pg_search (2.3.6)
       activerecord (>= 5.2)
       activesupport (>= 5.2)
-    psych (5.1.2)
-      stringio
+    psych (3.3.0)
     puma (6.4.2)
       nio4r (~> 2.0)
     racc (1.7.3)
-    rack (3.0.8)
+    rack (3.0.9)
     rack-cors (2.0.1)
       rack (>= 2.0.0)
+    rack-protection (4.0.0)
+      base64 (>= 0.1.0)
+      rack (>= 3.0.0, < 4)
     rack-session (2.0.0)
       rack (>= 3.0.0)
     rack-test (2.1.0)
@@ -191,21 +220,40 @@ GEM
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
     rake (13.1.0)
-    rdoc (6.6.2)
-      psych (>= 4.0.0)
+    rdoc (6.3.3)
     reline (0.4.2)
       io-console (~> 0.5)
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
     ruby2_keywords (0.0.5)
-    stringio (3.1.0)
+    sinatra (4.0.0)
+      mustermann (~> 3.0)
+      rack (>= 3.0.0, < 4)
+      rack-protection (= 4.0.0)
+      rack-session (>= 2.0.0, < 3)
+      tilt (~> 2.0)
+    skinny (0.2.4)
+      eventmachine (~> 1.0.0)
+      thin (>= 1.5, < 1.7)
+    sqlite3 (1.7.2-aarch64-linux)
+    sqlite3 (1.7.2-arm-linux)
+    sqlite3 (1.7.2-arm64-darwin)
+    sqlite3 (1.7.2-x86-linux)
+    sqlite3 (1.7.2-x86_64-darwin)
+    sqlite3 (1.7.2-x86_64-linux)
+    sqlite3-ruby (1.3.3)
+      sqlite3 (>= 1.3.3)
+    temple (0.10.3)
+    thin (1.6.2)
+      daemons (>= 1.0.9)
+      eventmachine (>= 1.0.0)
+      rack (>= 1.0.0)
     thor (1.3.0)
+    tilt (2.3.0)
     timeout (0.4.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    tzinfo-data (1.2023.4)
-      tzinfo (>= 1.0.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     webrick (1.8.1)
@@ -215,8 +263,12 @@ GEM
     zeitwerk (2.6.12)
 
 PLATFORMS
-  x64-mingw-ucrt
-  x64-mingw32
+  aarch64-linux
+  arm-linux
+  arm64-darwin
+  x86-linux
+  x86_64-darwin
+  x86_64-linux
 
 DEPENDENCIES
   actioncable (= 7.1.3)
@@ -227,9 +279,11 @@ DEPENDENCIES
   bootsnap
   debug
   devise_token_auth (>= 1.0.0)!
+  mailcatcher
   nokogiri (= 1.16.0)
   pg (~> 1.1)
   pg_search
+  psych (= 3.3.0)
   puma (= 6.4.2)
   rack-cors
   rails (= 7.1.3)
@@ -237,7 +291,7 @@ DEPENDENCIES
   tzinfo-data
 
 RUBY VERSION
-   ruby 3.3.0p0
+   ruby 3.0.2p107
 
 BUNDLED WITH
    2.5.4

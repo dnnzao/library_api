@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <h1>Confirmation Instructions</h1>
+    <p>Thank you for signing up with our app! Please click the link below to confirm your email address:</p>
+    <p><%= link_to 'Confirm Email', confirmation_url(@resource, confirmation_token: @token) %></p>
+  </body>
+</html>

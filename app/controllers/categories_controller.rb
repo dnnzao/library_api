@@ -1,5 +1,5 @@
 # app/controllers/categories_controller.rb
-class CategoriesController < ApplicationController
+class CategoriesController < ActionController::API
   before_action :set_category, only: %i[show update destroy]
 
   def index

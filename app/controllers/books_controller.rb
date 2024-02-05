@@ -1,5 +1,5 @@
 # app/controllers/books_controller.rb
-class BooksController < ApplicationController
+class BooksController < ActionController::API
   before_action :set_book, only: %i[show update destroy]
 
   def index

@@ -1,0 +1,6 @@
+Email Confirmation
+Welcome <%= @user.name %>,
+
+You can confirm your email through the link below:
+
+<%= confirmation_url(@user.confirmation_token, only_path: false) %>

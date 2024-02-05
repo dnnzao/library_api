@@ -20,6 +20,13 @@ class RegistrationsController < DeviseTokenAuth::RegistrationsController
   end
 
   def create
-    super
+    @user = User.new(sign_up_params)
+    if @user.save
+      ApplicationMailer.confirmation_email(@user).deliver_now
+      render json: { status: 'success', data: @user.as_json }, status: :ok
+    else
+      render json: { status: 'error', errors: @user.errors.full_messages }, status: :unprocessable_entity
+    end
   end
+  
 end

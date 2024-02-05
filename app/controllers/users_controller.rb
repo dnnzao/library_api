@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < ActionController::API
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   def create
     @users = User.new(user_params)
     if @users.save
+      ApplicationMailer.confirmation_email(@user).deliver_now
       redirect_to @users, notice: 'User was successfully created.'
     else
       render :new
@@ -27,6 +28,8 @@ class UsersController < ApplicationController
 
   def update
     if @users.update(user_params)
+      ApplicationMailer.confirmation_email(@user).deliver_now
+      puts @user 
       redirect_to @users, notice: 'User was successfully updated.'
     else
       render :edit
@@ -46,5 +49,8 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def confirmation_success
   end
 end
