@@ -1,4 +1,12 @@
-# config/environments/development.rb
+#
+#Filename: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/config/environments/development.rb
+#Path: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/config/environments
+#Created Date: Thursday, February 1st 2024, 4:02:58 pm
+#Author: Dênio Barbosa Júnior
+#
+#Copyright (c) 2024 Your Company
+#
+
 
 require "active_support/core_ext/integer/time"
 
@@ -8,16 +16,22 @@ Rails.application.configure do
   
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:         'smtp.gmail.com',
-    port:            587,
-    domain:          'example.com',
-    user_name:       'deniojr',
-    password:        'yqes nlin eixj ofhl',
-    authentication:  'plain',
-    enable_starttls: true,
-    open_timeout:    5,
-    read_timeout:    5 
+    address: 'localhost',
+    port: 1025
   }
+  
+
+  # config.action_mailer.smtp_settings = {
+  #   address:         'smtp.gmail.com',
+  #   port:            587,
+  #   domain:          'example.com',
+  #   user_name:       'deniojr',
+  #   password:        'yqes nlin eixj ofhl',
+  #   authentication:  'plain',
+  #   enable_starttls: true,
+  #   open_timeout:    5,
+  #   read_timeout:    5 
+  # }
 
 
 

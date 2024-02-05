@@ -1,32 +1,21 @@
-# app/controllers/registrations_controller.rb
+#
+#Filename: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/app/controllers/registrations_controller.rb
+#Path: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/app/controllers
+#Created Date: Thursday, February 1st 2024, 4:02:58 pm
+#Author: Dênio Barbosa Júnior
+#
+#Copyright (c) 2024 Your Company
+#
+
 
 class RegistrationsController < DeviseTokenAuth::RegistrationsController
+  private
 
   def sign_up_params
-    user_params = params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    user_params.merge(provider: user_params[:email], uid: user_params[:email])
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 
   def account_update_params
-    params.require(:user).permit(:email)
+    params.require(:user).permit(:name, :email)
   end
-
-  def index
-    @users = User.all
-  end
-
-  def show
-    @users = User.all
-  end
-
-  def create
-    @user = User.new(sign_up_params)
-    if @user.save
-      ApplicationMailer.confirmation_email(@user).deliver_now
-      render json: { status: 'success', data: @user.as_json }, status: :ok
-    else
-      render json: { status: 'error', errors: @user.errors.full_messages }, status: :unprocessable_entity
-    end
-  end
-  
 end

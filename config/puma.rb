@@ -1,3 +1,13 @@
+#
+#Filename: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/config/puma.rb
+#Path: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/config
+#Created Date: Thursday, February 1st 2024, 4:02:58 pm
+#Author: Dênio Barbosa Júnior
+#
+#Copyright (c) 2024 Your Company
+#
+
+
 # This configuration file will be evaluated by Puma. The top-level methods that
 # are invoked here are part of Puma's configuration DSL. For more information
 # about methods provided by the DSL, see https://puma.io/puma/Puma/DSL.html.

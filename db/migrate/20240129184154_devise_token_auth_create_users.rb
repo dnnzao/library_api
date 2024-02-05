@@ -1,3 +1,13 @@
+#
+#Filename: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/db/migrate/20240129184154_devise_token_auth_create_users.rb
+#Path: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/db/migrate
+#Created Date: Thursday, February 1st 2024, 4:02:58 pm
+#Author: Dênio Barbosa Júnior
+#
+#Copyright (c) 2024 Your Company
+#
+
+
 class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[7.1]
   def change
     

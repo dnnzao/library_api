@@ -1,3 +1,13 @@
+#
+#Filename: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/config/routes.rb
+#Path: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/config
+#Created Date: Thursday, February 1st 2024, 4:02:58 pm
+#Author: Dênio Barbosa Júnior
+#
+#Copyright (c) 2024 Your Company
+#
+
+
 Rails.application.routes.draw do
   # Devise Token Auth routes
   mount_devise_token_auth_for 'User', at: 'auth', controllers: {
@@ -14,7 +24,8 @@ Rails.application.routes.draw do
   resources :books
   resources :publishers
   resources :categories
-  resources :users
+  resources :users, only: [:index, :show, :create, :update, :destroy]
+
 
   # API routes
   namespace :api do

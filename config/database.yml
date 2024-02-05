@@ -1,3 +1,13 @@
+# /*
+#  * Filename: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/config/database.yml
+#  * Path: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/config
+#  * Created Date: Thursday, February 1st 2024, 4:02:58 pm
+#  * Author: Dênio Barbosa Júnior
+#  * 
+#  * Copyright (c) 2024 Your Company
+#  */
+
+
 # PostgreSQL. Versions 9.3 and up are supported.
 #
 # Install the pg driver:

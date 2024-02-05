@@ -1,3 +1,13 @@
+#
+#Filename: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/db/schema.rb
+#Path: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/db
+#Created Date: Thursday, February 1st 2024, 4:02:58 pm
+#Author: Dênio Barbosa Júnior
+#
+#Copyright (c) 2024 Your Company
+#
+
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
