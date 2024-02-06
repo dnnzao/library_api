@@ -24,12 +24,14 @@ class UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params)
+
     if @user.save
-      # Sending email through devise token auth handled by callbacks
-      render json: @user, status: :created, location: @user
+      UserMailer.confirmation_instructions(@user).deliver_now
+      render json: { message: "Please check your email to confirm your registration." }, status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
     end
+    
   end
 
   # PATCH/PUT /users/1

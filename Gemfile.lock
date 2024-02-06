@@ -84,6 +84,8 @@ GEM
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
+    addressable (2.8.6)
+      public_suffix (>= 2.0.2, < 6.0)
     base64 (0.2.0)
     bcrypt (3.1.20)
     bigdecimal (3.1.6)
@@ -121,6 +123,10 @@ GEM
       rdoc
       reline (>= 0.4.2)
     json (2.7.1)
+    launchy (2.5.2)
+      addressable (~> 2.8)
+    letter_opener (1.8.1)
+      launchy (>= 2.2, < 3)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -174,6 +180,7 @@ GEM
       activerecord (>= 5.2)
       activesupport (>= 5.2)
     psych (3.3.0)
+    public_suffix (5.0.4)
     puma (6.4.2)
       nio4r (~> 2.0)
     racc (1.7.3)
@@ -279,6 +286,7 @@ DEPENDENCIES
   bootsnap
   debug
   devise_token_auth (>= 1.0.0)!
+  letter_opener
   mailcatcher
   nokogiri (= 1.16.0)
   pg (~> 1.1)

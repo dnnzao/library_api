@@ -79,6 +79,6 @@ DeviseTokenAuth.setup do |config|
   # See: https://stackoverflow.com/q/19600905/806956
   # config.navigational_formats = [:json]
 
-  config.default_confirm_success_url = "http://localhost:3000/confirmation_success"
+  # config.default_confirm_success_url = "http://localhost:3000/confirmation_success"
 
 end

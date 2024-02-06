@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Confirmation success route
+  get 'verify_email', to: 'users#verify_email'
   get 'confirmation_success', to: 'users#confirmation_success', as: :confirmation_success
 
   # Resources routes
