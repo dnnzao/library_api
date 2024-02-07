@@ -8,7 +8,7 @@
 #
 
 
-class PublishersController < ActionController::API
+class PublishersController < ApplicationController::API
   before_action :set_publisher, only: %i[show update destroy]
 
   def index

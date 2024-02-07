@@ -8,7 +8,7 @@
 #
 
 
-class CategoriesController < ActionController::API
+class CategoriesController < ApplicationController::API
   before_action :set_category, only: %i[show update destroy]
 
   def index

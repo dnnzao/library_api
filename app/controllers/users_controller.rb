@@ -9,8 +9,10 @@
 
 
 class UsersController < ApplicationController
-  # before_action :authenticate_user!, except: [:create]
-  before_action :set_user, only: [:show, :update, :destroy]
+  # skip_before_action : authenticate_user!, only: [:create]
+  before_action :authenticate_user!
+  # before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:update, :destroy]
 
   def index
     @users = User.all
@@ -18,7 +20,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    render json: @user
+    # render json: @user
+    render json: current_user
   end
 
   # POST /users

@@ -8,7 +8,7 @@
 #
 
 
-class BooksController < ActionController::API
+class BooksController < ApplicationController::API
   before_action :set_book, only: %i[show update destroy]
 
   def index
