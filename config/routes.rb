@@ -19,13 +19,13 @@ Rails.application.routes.draw do
 
   get 'verify_email', to: 'users#verify_email'
   get 'confirmation_success', to: 'users#confirmation_success', as: :confirmation_success
-  get 'current_user' => 'users#show', as: :current_user
 
   # Resources routes
   resources :books
   resources :publishers
   resources :categories
   resources :users, only: [:index, :show, :create, :update, :destroy]
+  resource :current_user, only: [:show]
 
 
   # API routes
