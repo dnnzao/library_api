@@ -8,8 +8,9 @@
 #
 
 
-class PublishersController < ApplicationController::API
+class PublishersController < ApplicationController
   before_action :set_publisher, only: %i[show update destroy]
+  before_action :authenticate_user!, only: [:create, :update, :destroy]
 
   def index
     @publishers = Publisher.all
@@ -40,9 +41,11 @@ class PublishersController < ApplicationController::API
   end
 
   def destroy
+    raise "User not authenticated" unless current_user
     @publisher.destroy
     head :no_content
   end
+  
 
   private
 
@@ -51,6 +54,6 @@ class PublishersController < ApplicationController::API
   end
 
   def publisher_params
-    params.require(:publisher).permit(:publisher_name)
-  end
+    params.require(:publisher).permit(:name)
+  end  
 end
