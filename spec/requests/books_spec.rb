@@ -1,59 +1,60 @@
 require 'rails_helper'
 
 RSpec.describe "Books", type: :request do
-  let(:user) { FactoryBot.create(:user) }
-  let(:auth_headers) { user.create_new_auth_token }
-  let(:category) { FactoryBot.create(:category) }
-  let(:publisher) { FactoryBot.create(:publisher) }
-  let(:book) { FactoryBot.create(:book, category: category, publisher: publisher) }
+    let(:user) { User.find_by(email: "johnny_cage@email.com") }
+    let(:category) { FactoryBot.create(:category) }
+    let(:publisher) { FactoryBot.create(:publisher) }
+    let(:valid_attributes) { 
+      { 
+        book_name: "The Factory Bot Book",
+        author: "Factory Bot",
+        published_date: Date.current,
+        category_id: category.id,
+        publisher_id: publisher.id
+      }
+    }   
+    let(:headers) { { "Authorization" => "Bearer #{user.auth_tokens["access"]}" } }
   
-  let(:valid_attributes) {
-    {
-      book_name: "Updated Factory Bot Book",
-      author: "Updated Factory Bot",
-      published_date: Date.current,
-      category_id: category.id,
-      publisher_id: publisher.id
-    }
-  }
+    describe "POST /books" do
+      context "when user is logged in" do
+        before do
+          sign_in user
+        end
+        
+        # did not pass
+        context "with valid parameters" do
+          it "creates a new Book" do
+            expect {
+              post books_path, params: { book: valid_attributes }, headers: headers 
+            }.to change(Book, :count).by(1)
+            expect(response).to have_http_status(:created)
+          end
+        end
   
-  let(:invalid_attributes) {
-    {
-      book_name: "",
-      author: nil,
-      published_date: nil,
-      category_id: nil,
-      publisher_id: nil
-    }
-  }
-
-  describe "POST /books" do
-    context "when user is logged in" do
-      it "creates a new Book with valid parameters" do
-        expect {
-          post books_path, params: { book: valid_attributes }, headers: auth_headers
-        }.to change(Book, :count).by(1)
-        expect(response).to have_http_status(:created)
+        # did not pass
+        context "with invalid parameters" do
+          it "does not create a new Book" do
+            expect {
+              post books_path, params: { book: invalid_attributes }, headers: headers # Include headers for authentication
+            }.to change(Book, :count).by(0)
+            expect(response).to have_http_status(:unprocessable_entity)
+          end
+        end
       end
-
-      it "does not create a new Book with invalid parameters" do
-        expect {
-          post books_path, params: { book: invalid_attributes }, headers: auth_headers
-        }.to_not change(Book, :count)
-        expect(response).to have_http_status(:unprocessable_entity)
+  
+      # passed
+      context "when user is logged out" do
+        it "does not allow creating a Book" do
+          post books_path, params: { book: valid_attributes }
+          expect(response).to have_http_status(:unauthorized) # Assuming your API requires authentication
+        end
       end
     end
-
-    context "when user is logged out" do
-      it "does not allow creating a Book" do
-        post books_path, params: { book: valid_attributes }
-        expect(response).to have_http_status(:unauthorized)
-      end
-    end
-  end
-
+    
   describe "PUT /books/:id" do
     context "when user is logged in" do
+
+      # did not pass
       it "updates the Book with valid parameters" do
         put book_path(book), params: { book: valid_attributes }, headers: auth_headers
         book.reload
@@ -61,6 +62,7 @@ RSpec.describe "Books", type: :request do
         expect(response).to have_http_status(:ok)
       end
 
+      # did not pass
       it "does not update the Book with invalid parameters" do
         put book_path(book), params: { book: invalid_attributes }, headers: auth_headers
         expect(response).to have_http_status(:unprocessable_entity)
@@ -68,6 +70,8 @@ RSpec.describe "Books", type: :request do
     end
 
     context "when user is logged out" do
+    
+      # did not pass
       it "does not allow updating a Book" do
         put book_path(book), params: { book: valid_attributes }
         expect(response).to have_http_status(:unauthorized)
@@ -79,6 +83,8 @@ RSpec.describe "Books", type: :request do
     let!(:book_to_delete) { FactoryBot.create(:book, category: category, publisher: publisher) }
     
     context "when user is logged in" do
+      
+      # did not pass
       it "deletes the Book" do
         expect {
           delete book_path(book_to_delete), headers: auth_headers

@@ -9,7 +9,7 @@
 
 
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  #before_action :authenticate_user!
   before_action :set_user, only: [:show, :update, :destroy]
   # before_action :set_user, only: [:update, :destroy]
 
@@ -48,6 +48,11 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     head :no_content
+  end
+
+  def info
+    users_info = User.all.map { |user| user_params.transform_keys(&:to_sym).slice(:name, :email, :password, :password_confirmation) }
+    render json: users_info
   end
 
   private

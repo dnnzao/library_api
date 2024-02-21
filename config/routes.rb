@@ -14,19 +14,20 @@ Rails.application.routes.draw do
     registrations: 'registrations'
   }
 
-  # Health check route
+  # GET methods
   get "up" => "rails/health#show", as: :rails_health_check
-
   get 'verify_email', to: 'users#verify_email'
   get 'confirmation_success', to: 'users#confirmation_success', as: :confirmation_success
+
+  # POST methods
+  post '/users/info', to: 'users#info'
 
   # Resources routes
   resources :books
   resources :publishers
   resources :categories
-  resources :users, only: [:index, :show, :create, :update, :destroy]
+  #resources :users, only: [:index, :show, :create, :update, :destroy]
   resource :current_user, only: [:show]
-
 
   # API routes
   namespace :api do

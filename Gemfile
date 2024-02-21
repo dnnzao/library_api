@@ -27,6 +27,7 @@ gem 'devise_token_auth', '>= 1.0.0', git: "https://github.com/lynndylanhurley/de
 gem 'rack-cors'
 gem 'psych', '3.3.0'
 gem 'mailcatcher'
+gem 'faker'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ jruby ]
@@ -40,7 +41,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'faker'
   gem 'database_cleaner-active_record'
 end
 
