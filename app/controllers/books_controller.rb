@@ -11,7 +11,7 @@
 
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show update destroy]
-  before_action :authenticate_user!, only: %i[create update destroy]
+  # before_action :authenticate_user!, only: %i[create update destroy]
 
   def index
     category_ids = params[:categories] || []
