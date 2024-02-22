@@ -1,12 +1,13 @@
-#
-#Filename: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/config/routes.rb
-#Path: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/config
-#Created Date: Thursday, February 1st 2024, 4:02:58 pm
-#Author: Dênio Barbosa Júnior
-#
-#Copyright (c) 2024 Your Company
-#
+# frozen_string_literal: true
 
+#
+# Filename: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/config/routes.rb
+# Path: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/config
+# Created Date: Thursday, February 1st 2024, 4:02:58 pm
+# Author: Dênio Barbosa Júnior
+#
+# Copyright (c) 2024 Your Company
+#
 
 Rails.application.routes.draw do
   # Devise Token Auth routes
@@ -15,9 +16,10 @@ Rails.application.routes.draw do
   }
 
   # GET methods
-  get "up" => "rails/health#show", as: :rails_health_check
+  get 'up' => 'rails/health#show', as: :rails_health_check
   get 'verify_email', to: 'users#verify_email'
   get 'confirmation_success', to: 'users#confirmation_success', as: :confirmation_success
+  get 'list_users', to: 'users#list_users'
 
   # POST methods
   post '/users/info', to: 'users#info'
@@ -26,7 +28,7 @@ Rails.application.routes.draw do
   resources :books
   resources :publishers
   resources :categories
-  #resources :users, only: [:index, :show, :create, :update, :destroy]
+  # resources :users, only: [:index, :show, :create, :update, :destroy]
   resource :current_user, only: [:show]
 
   # API routes

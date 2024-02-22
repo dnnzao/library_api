@@ -1,22 +1,25 @@
 require 'rails_helper'
-require 'faker'
 
-RSpec.describe "User Methods", type: :request do
-    let!(:auth_headers) { @current_user = FactoryBot.create(:user) }
-    let(:invalid_attributes) { 
-      { 
-        name: "The Factory Bot Book",
-        email: "",
-        password: "1234567",
-        password_confirmation: ""
-      }
-    } 
+RSpec.describe UsersController, type: :controller do
+  describe 'POST /auth' do
+    context 'with valid parameters' do
+      it 'creates user with valid params' do
+        expect {
+          post :create, FactoryBot.build(:user)
+        }
 
-    it "registers a user with valid parameters" do
-      expect {have_http_status.to eq(200)}
+        expect(response.status).to eq(200)
+      end
     end
 
-    it "registers a user with invalid parameters" do
-      expect {have_http_status.to eq(400)}
+    # test not passing
+    context 'with invalid parameters' do
+      it 'creates user with invalid params' do
+        expect {
+          post :create, FactoryBot.build(:user, name: '')
+        }
+        expect(response.status).to eq(400)
+      end
     end
+  end
 end

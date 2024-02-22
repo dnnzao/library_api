@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'User Registration and Email Confirmation', type: :request do
@@ -33,14 +35,14 @@ RSpec.describe 'User Registration and Email Confirmation', type: :request do
 
       # Extract token from URL
       token_query = URI.parse(confirmation_link).query
-      confirmation_token = CGI.parse(token_query)["confirmation_token"].first
+      confirmation_token = CGI.parse(token_query)['confirmation_token'].first
 
       # Simulate clicking the confirmation link
       get "/users/confirmation?confirmation_token=#{confirmation_token}"
 
       expect(response).to redirect_to(some_path_after_confirmation) # Adjust based on your app
       follow_redirect!
-      expect(response.body).to include("Your email has been successfully confirmed.")
+      expect(response.body).to include('Your email has been successfully confirmed.')
     end
   end
 end

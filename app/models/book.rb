@@ -1,23 +1,25 @@
-#
-#Filename: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/app/models/book.rb
-#Path: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/app/models
-#Created Date: Thursday, February 1st 2024, 4:02:58 pm
-#Author: Dênio Barbosa Júnior
-#
-#Copyright (c) 2024 Your Company
-#
+# frozen_string_literal: true
 
+#
+# Filename: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/app/models/book.rb
+# Path: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/app/models
+# Created Date: Thursday, February 1st 2024, 4:02:58 pm
+# Author: Dênio Barbosa Júnior
+#
+# Copyright (c) 2024 Your Company
+#
 
 class Book < ApplicationRecord
   include PgSearch::Model
 
   pg_search_scope :search_by_name, lambda { |book_names|
-    return {} if book_names.blank?  # Return an empty search scope if no book names are provided
+    return {} if book_names.blank? # Return an empty search scope if no book names are provided
+
     {
       against: :book_name,
       query: book_names.split(',').map { |name| "%#{name.downcase}%" }.join(' | '),
-      using: { tsearch: { prefix: true }},
-      order_within_rank: "book_name ASC"
+      using: { tsearch: { prefix: true } },
+      order_within_rank: 'book_name ASC'
     }
   }
 
@@ -39,8 +41,6 @@ class Book < ApplicationRecord
 
     books
   end
-
-  private
 
   def self.filter_by_categories(books, category_ids)
     return books unless category_ids.present?

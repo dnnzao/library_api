@@ -1,12 +1,11 @@
 #
-#Filename: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/config/initializers/devise_token_auth.rb
-#Path: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/config/initializers
-#Created Date: Thursday, February 1st 2024, 4:02:58 pm
-#Author: Dênio Barbosa Júnior
+# Filename: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/config/initializers/devise_token_auth.rb
+# Path: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/config/initializers
+# Created Date: Thursday, February 1st 2024, 4:02:58 pm
+# Author: Dênio Barbosa Júnior
 #
-#Copyright (c) 2024 Your Company
+# Copyright (c) 2024 Your Company
 #
-
 
 # frozen_string_literal: true
 
@@ -80,5 +79,4 @@ DeviseTokenAuth.setup do |config|
   # config.navigational_formats = [:json]
 
   # config.default_confirm_success_url = "http://localhost:3000/confirmation_success"
-
 end

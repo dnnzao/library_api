@@ -1,43 +1,48 @@
+# frozen_string_literal: true
+
 #
-#Filename: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/Gemfile
-#Path: /home/deniojr/Desktop/ruby_on_rails_studies/library_api
-#Created Date: Thursday, February 1st 2024, 4:02:58 pm
-#Author: Dênio Barbosa Júnior
+# Filename: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/Gemfile
+# Path: /home/deniojr/Desktop/ruby_on_rails_studies/library_api
+# Created Date: Thursday, February 1st 2024, 4:02:58 pm
+# Author: Dênio Barbosa Júnior
 #
-#Copyright (c) 2024 Your Company
+# Copyright (c) 2024 Your Company
 #
 
-
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 ruby '3.0.2'
 
-gem 'pg', "~> 1.1"
-gem 'rails', '7.1.3'
-gem 'puma', '6.4.2'
-gem 'nokogiri', '1.16.0'
 gem 'actioncable', '7.1.3'
 gem 'actionmailbox', '7.1.3'
 gem 'actionmailer', '7.1.3'
 gem 'actiontext', '7.1.3'
 gem 'activestorage', '7.1.3'
-gem 'railties', '7.1.3'
-gem 'pg_search'
-gem 'devise_token_auth', '>= 1.0.0', git: "https://github.com/lynndylanhurley/devise_token_auth"
-gem 'rack-cors'
-gem 'psych', '3.3.0'
+gem 'devise_token_auth', '>= 1.0.0', git: 'https://github.com/lynndylanhurley/devise_token_auth'
+gem 'faker', group: %i[development test]
 gem 'mailcatcher'
-gem 'faker'
+gem 'nokogiri', '1.16.0'
+gem 'pg', '~> 1.1'
+gem 'pg_search'
+gem 'psych', '3.3.0'
+gem 'puma', '6.4.2'
+gem 'rack-cors'
+gem 'rails', '7.1.3'
+gem 'railties', '7.1.3'
+gem 'rbs'
+gem 'solargraph', group: %i[development test]
+gem 'capybara'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ jruby ]
+gem 'tzinfo-data', platforms: %i[jruby]
 
 # Reduces boot times through caching; required in config/boot.rb
-gem "bootsnap", require: false
+gem 'bootsnap', require: false
 
 group :development, :test do
-  gem 'rspec-rails'
   gem 'factory_bot_rails'
+  gem 'rspec-rails'
+#  gem 'factory_girl'
 end
 
 group :test do
@@ -45,5 +50,7 @@ group :test do
 end
 
 group :development do
-  gem "letter_opener"
+  gem 'letter_opener'
 end
+
+gem "activesupport", "~> 7.1"
