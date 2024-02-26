@@ -15,6 +15,10 @@ Rails.application.routes.draw do
     registrations: 'registrations'
   }
 
+  # devise_scope :user do
+  #   post "/auth" => "devise/registrations#create"
+  # end
+
   # GET methods
   get 'up' => 'rails/health#show', as: :rails_health_check
   get 'verify_email', to: 'users#verify_email'

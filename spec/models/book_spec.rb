@@ -3,15 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe BooksController, type: :request do
-  let(:user) { FactoryBot.create(:user) }
-  let(:valid_attributes) do
-    { book_name: 'The Great Gatsby', author: 'F. Scott Fitzgerald', published_date: Date.current, category_id: 1,
-      publisher_id: 1 }
-  end
-  let(:invalid_attributes) do
-    { book_name: '', author: '', published_date: nil, category_id: nil, publisher_id: nil }
-  end
-
   # CREATE test
   describe 'POST /books' do
     context 'when user is logged in' do

@@ -30,13 +30,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    if 
-      puts user_params.to_sym
-      if @user.save
-        UserMailer.confirmation_instructions(@user).deliver_now
-        render json: { message: 'Please check your email to confirm your registration.' }, status: :created
-      end
-      render json: { message: 'Could not send confirmation email.' }
+    puts user_params.to_sym
+    if @user.save
+      UserMailer.confirmation_instructions(@user).deliver_now
+      render json: { message: 'Please check your email to confirm your registration.' }, status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
     end

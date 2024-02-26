@@ -3,7 +3,7 @@
 # spec/factories/books.rb
 FactoryBot.define do
   factory :book do
-    book_name { 'The Factory Bot Book' }
+    book_name { 'The Factory Bot Book 2' }
     author { 'Factory Bot' }
     published_date { Date.current }
     category { 'Fantasy' }

@@ -7,6 +7,7 @@ require_relative '../config/environment'
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
+# Dir[Rails.root.join('spec/factories/**/*.rb')].each { |f| require f }
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'database_cleaner/active_record'
 
@@ -38,6 +39,7 @@ end
 
 RSpec.configure do |config|
   config.include RequestSpecHelper, type: :request
+  #config.action_mailer.default_url_options = { host: 'www.test.com', protocol: 'http' }
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)

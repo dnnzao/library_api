@@ -23,8 +23,12 @@ require 'capybara/rspec'
 require 'support/controller_macros'
 
 RSpec.configure do |config|
-  include Capybara::DSL
+  config.include FactoryBot::Syntax::Methods
+
   config.extend ControllerMacros, :type => :controller
+
+  # config.expect_with :rspec do |expectations| 
+
   config.include Devise::Test::IntegrationHelpers, type: :request
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
