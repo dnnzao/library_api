@@ -11,7 +11,7 @@
 
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show update destroy]
-  # before_action :authenticate_user!, only: %i[create update destroy]
+  before_action :authenticate_user!, only: %i[create update destroy]
 
   def index
     category_ids = params[:categories] || []
@@ -20,7 +20,6 @@ class BooksController < ApplicationController
 
     begin
       if category_ids.present? || publisher_ids.present?
-        # Ensure that your filter_books method filters books based on category and publisher IDs correctly.
         @books = Book.filter_books(category_ids, publisher_ids, book_names)
 
         if @books.empty?
@@ -29,7 +28,6 @@ class BooksController < ApplicationController
           render json: @books, include: %i[category publisher], status: :ok
         end
       elsif book_names.present?
-        # Ensure that your search_by_name method filters books based on book names correctly.
         @books = Book.search_by_name(book_names)
 
         if @books.empty?
@@ -38,7 +36,6 @@ class BooksController < ApplicationController
           render json: @books, include: %i[category publisher], status: :ok
         end
       else
-        # This block should return all books when no filters are applied.
         @books = Book.all
         render json: @books, include: %i[category publisher], status: :ok
       end

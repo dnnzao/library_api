@@ -2,18 +2,32 @@
 
 require 'rails_helper'
 
-RSpec.describe CategoriesController, type: :controller do
-  before do
-    @request.env["devise.mapping"] = Devise.mappings[:category]
+RSpec.describe CategoriesController, type: :request do
+  let!(:user) { create(:user) }
+  let!(:valid_category_attributes) { attributes_for(:category) }
+  let!(:invalid_category_attributes) { attributes_for(:category, :invalid_category) }
+  let!(:auth_headers) { user.create_new_auth_token }
+
+  def login_user
+    before(:all) do
+      user.confirm!
+      sign_in user
+    end
   end
 
-  it 'is valid with valid attributes' do
-    @category = build(:category)
-    expect(@category).to be_valid
-  end
+  describe 'POST /categories' do
+    context 'with valid parameters' do
+      it 'creates a new Book' do
+        post categories_path, params: valid_category_attributes.to_json, headers: auth_headers.merge({'Content-Type' => 'application/json'})
+        expect(response).to have_http_status(:created)
+      end
+    end
 
-  it 'is valid with valid attributes' do
-    @category = build(:category, :invalid_category)
-    expect(@category).to_not be_valid
+    context 'with invalid parameters' do
+      it 'does not create a new Book' do
+        post categories_path, params: invalid_category_attributes.to_json, headers: auth_headers.merge({'Content-Type' => 'application/json'})
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
   end
 end

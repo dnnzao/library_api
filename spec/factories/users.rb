@@ -6,7 +6,7 @@ FactoryBot.define do
     email { Faker::Internet.unique.email }
     password { 'password123' }
     password_confirmation { 'password123' }
-    confirmed_at { Date.today }
+    confirmed_at { Time.now }
 
     trait :invalid_user do
       name { '' }
