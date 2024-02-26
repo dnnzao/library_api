@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe RegistrationsController, type: :controller do
-  before do
-    @request.env["devise.mapping"] = Devise.mappings[:user]
-  end
-
   describe "POST /auth" do
     context 'with valid parameters' do
       it 'is valid with valid attributes' do

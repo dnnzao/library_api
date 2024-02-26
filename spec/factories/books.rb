@@ -9,24 +9,12 @@ FactoryBot.define do
     association :category, factory: :category
     association :publisher, factory: :publisher
 
-    trait :invalid_name do
+    trait :invalid_book do
       book_name { '' }
-    end
-
-    trait :invalid_author do
       author { '' }
-    end
-
-    trait :invalid_date do
       published_date { '' }
-    end
-
-    trait :invalid_category do
-      association :category, factory: :category
-    end
-
-    trait :invalid_publisher do
-      association :publisher, factory: :publisher
+      category { nil }
+      publisher { nil }
     end
   end
 end

@@ -9,6 +9,8 @@ require 'support/controller_macros'
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
+  config.include Rails.application.routes.url_helpers
+
   config.extend ControllerMacros, :type => :controller
 
   config.include Devise::Test::IntegrationHelpers, type: :request

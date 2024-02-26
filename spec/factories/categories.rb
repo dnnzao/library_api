@@ -4,9 +4,5 @@
 FactoryBot.define do
   factory :category do
     name { 'Factory Bot Category' }
-
-    trait :invalid_category do
-      name { '' }
-    end
   end
 end

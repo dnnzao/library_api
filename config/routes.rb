@@ -12,17 +12,12 @@
 Rails.application.routes.draw do
   # Devise Token Auth routes
   mount_devise_token_auth_for 'User', at: 'auth', controllers: {
-    registrations: 'registrations'
+    registrations: 'registrations',
+    confirmations: 'devise_token_auth/confirmations'
   }
-
-  # devise_scope :user do
-  #   post "/auth" => "devise/registrations#create"
-  # end
 
   # GET methods
   get 'up' => 'rails/health#show', as: :rails_health_check
-  get 'verify_email', to: 'users#verify_email'
-  get 'confirmation_success', to: 'users#confirmation_success', as: :confirmation_success
   get 'list_users', to: 'users#list_users'
 
   # POST methods
@@ -32,7 +27,6 @@ Rails.application.routes.draw do
   resources :books
   resources :publishers
   resources :categories
-  # resources :users, only: [:index, :show, :create, :update, :destroy]
   resource :current_user, only: [:show]
 
   # API routes

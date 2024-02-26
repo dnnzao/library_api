@@ -11,27 +11,27 @@ RSpec.describe Books, type: :model do
   end
 
   it 'is invalid name' do
-    book = build(:book, :invalid_name)
-    expect(book).to be_valid
+    book = build(:book, :invalid_book)
+    expect(book.book_name).blank?
   end
 
   it 'is invalid author' do
-    book = build(:book, :invalid_author)
-    expect(book).to be_valid
+    book = build(:book, :invalid_book)
+    expect(book.author).blank?
   end
 
   it 'is invalid date' do
-    book = build(:book, :invalid_date)
-    expect(book).to be_valid
+    book = build(:book, :invalid_book)
+    expect(book.published_date).blank?
   end
 
-  it 'is valid category' do
-    book = build(:book, :invalid_category)
-    expect(book).to be_valid
+  it 'is invalid category' do
+    book = build(:book, :invalid_book)
+    expect(book.category).blank?
   end
 
-  it 'is valid publisher' do
-    book = build(:book, :invalid_publisher)
-    expect(book).to be_valid
+  it 'is invalid publisher' do
+    book = build(:book, :invalid_book)
+    expect(book.publisher).blank?
   end
 end

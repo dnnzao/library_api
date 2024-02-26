@@ -2,42 +2,34 @@
 
 require 'rails_helper'
 
-RSpec.describe BooksController, type: :controller do
-    before do
-      @request.env["devise.mapping"] = Devise.mappings[:book]
-    end
+RSpec.describe 'Books', type: :request do
+  let(:user) { create(:user) }
+  let(:category) { create(:category) }
+  let(:publisher) { create(:publisher) }
+  let(:valid_book_attributes) { attributes_for(:book, category_id: category.id, publisher_id: publisher.id) }
+  let(:invalid_book_attributes) { attributes_for(:book, :invalid_book) }
+  let!(:auth_headers) { user.create_new_auth_token }
 
+  def login_user
+    before(:all) do
+      user.confirm!
+      sign_in user
+    end
+  end
+
+  describe 'POST /books' do
     context 'with valid parameters' do
-      it 'is valid with valid attributes' do
-        @book = build(:book)
-        expect(@book).to be_valid
+      it 'creates a new Book' do
+        post books_path, params: { book: valid_book_attributes }.to_json, headers: auth_headers.merge({'Content-Type' => 'application/json'})
+        expect(response).to have_http_status(:created)
       end
     end
 
     context 'with invalid parameters' do
-      it 'does not create book with empty name' do
-        @book = build(:book, :invalid_name)
-        expect(@book).to be_valid
-      end
-
-      it 'does not create book with empty author' do
-        @book = build(:book, :invalid_author)
-        expect(@book).to be_valid
-      end
-
-      it 'does not create book with empty date' do
-        @book = build(:book, :invalid_date)
-        expect(@book).to be_valid
-      end
-
-      it 'does not create book with empty category' do
-        @book = build(:book, :invalid_category)
-        expect(@book).to be_valid
-      end
-
-      it 'does not create book with empty publisher' do
-        @book = build(:book, :invalid_publisher)
-        expect(@book).to be_valid
+      it 'does not create a new Book' do
+        post books_path, params: { book: invalid_book_attributes }.to_json, headers: auth_headers.merge({'Content-Type' => 'application/json'})
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
+  end
 end

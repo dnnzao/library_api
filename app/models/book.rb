@@ -55,4 +55,10 @@ class Book < ApplicationRecord
     publisher_ids = publisher_ids.split(',')
     books.where(publisher_id: publisher_ids)
   end
+
+  validates :book_name, presence: true
+  validates :author, presence: true
+  validates :published_date, presence: true
+  # validates association :category, presence: true
+  # validates association :publisher, presence: true
 end
