@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Books', type: :request do
-  let(:user) { create(:user) }
-  let(:category) { create(:category) }
-  let(:publisher) { create(:publisher) }
-  let(:valid_book_attributes) { attributes_for(:book, category_id: category.id, publisher_id: publisher.id) }
-  let(:invalid_book_attributes) { attributes_for(:book, :invalid_book) }
+  let!(:user) { create(:user) }
+  let!(:category) { create(:category) }
+  let!(:publisher) { create(:publisher) }
+  let!(:valid_book_attributes) { attributes_for(:book, category_id: category.id, publisher_id: publisher.id) }
+  let!(:invalid_book_attributes) { attributes_for(:book, :invalid_book) }
   let!(:auth_headers) { user.create_new_auth_token }
 
   def login_user
