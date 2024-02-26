@@ -20,14 +20,14 @@ RSpec.describe 'Books', type: :request do
   describe 'POST /books' do
     context 'with valid parameters' do
       it 'creates a new Book' do
-        post books_path, params: { book: valid_book_attributes }.to_json, headers: auth_headers.merge({'Content-Type' => 'application/json'})
+        post books_path, params: valid_book_attributes.to_json, headers: auth_headers.merge({'Content-Type' => 'application/json'})
         expect(response).to have_http_status(:created)
       end
     end
 
     context 'with invalid parameters' do
       it 'does not create a new Book' do
-        post books_path, params: { book: invalid_book_attributes }.to_json, headers: auth_headers.merge({'Content-Type' => 'application/json'})
+        post books_path, params: invalid_book_attributes.to_json, headers: auth_headers.merge({'Content-Type' => 'application/json'})
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end

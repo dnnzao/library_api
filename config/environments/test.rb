@@ -12,6 +12,15 @@
 require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
+  config.action_mailer.default_url_options = { host: 'www.example.com' }
+  config.action_mailer.default_options = { from: 'deniojr@gmail.com' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'localhost',
+    port: 1025
+  }
+
+
   config.enable_reloading = false
 
   config.eager_load = ENV['CI'].present?

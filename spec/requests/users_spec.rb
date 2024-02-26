@@ -1,19 +1,43 @@
 require 'rails_helper'
 
-RSpec.describe RegistrationsController, type: :controller do
-  describe "POST /auth" do
+RSpec.describe 'RegistrationsController', type: :request do
+  describe 'POST /auth' do
     context 'with valid parameters' do
-      it 'is valid with valid attributes' do
-        @user = build(:user)
-        expect(@user).to be_valid
+      let(:valid_attributes) do
+        {
+          user: {
+            name: 'Sudo Su',
+            email: 'super_user6@root.com',
+            password: 'arch_superiority',
+            password_confirmation: 'arch_superiority'
+          },
+          confirm_success_url: '/'
+        }
+      end
+
+      it 'registers a new user and returns status code 201' do
+        post '/auth', params: valid_attributes.to_json, headers: { 'CONTENT_TYPE' => 'application/json' }
+        expect(response).to have_http_status(:success)
       end
     end
-  end
 
-  context 'with invalid parameters' do
-    it 'does not create a new user' do
-      @user = build(:user, :invalid_user)
-      expect(@user).to_not be_valid
+    context 'with valid parameters' do
+      let(:invalid_attributes) do
+        {
+          user: {
+            name: '',
+            email: '',
+            password: '',
+            password_confirmation: ''
+          },
+          confirm_success_url: '/'
+        }
+      end
+
+      it 'registers a new user and returns status code 201' do
+        post '/auth', params: invalid_attributes.to_json, headers: { 'CONTENT_TYPE' => 'application/json' }
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
     end
   end
 end
