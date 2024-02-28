@@ -21,6 +21,8 @@ Rails.application.configure do
     port: 1025
   }
 
+  config.auth_redirect_url = 'http://localhost:3000/auth/success'
+
   config.enable_reloading = true
 
   config.eager_load = false

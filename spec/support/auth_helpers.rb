@@ -9,7 +9,7 @@
 
 module AuthHelpers
   def authenticate_user(user)
-    post user_session_path, params: { email: user.email, password: 'password123' }.to_json, headers: { 'Content-Type' => 'application/json' }
+    post user_session_path, params: { email: user.email, password: user.password }.to_json, headers: { 'Content-Type' => 'application/json' }
     expect(response).to have_http_status(:success)
     response.headers.slice('access-token', 'token-type', 'client', 'expiry', 'uid')
   end

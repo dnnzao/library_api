@@ -10,24 +10,9 @@
 #
 
 class RegistrationsController < DeviseTokenAuth::RegistrationsController
-  before_action :validate_signup_params, only: [:create]
+  # before_action :validate_signup_params, only: [:create]
 
   private
-
-  def validate_signup_params
-    required_params = %i[name email password password_confirmation]
-    required_params.each do |param|
-      if params[:user][param].blank?
-        render json: { error: "#{param.capitalize} can't be blank" }, status: :unprocessable_entity
-        return
-      end
-    end
-
-    unless params[:user][:password] == params[:user][:password_confirmation]
-      render json: { error: "Password confirmation doesn't match Password" }, status: :unprocessable_entity
-      return
-    end
-  end
 
   def sign_up_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)

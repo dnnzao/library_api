@@ -18,6 +18,4 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
 
   validates :name, presence: true
-  validates :email, presence: true
-  validates :password, presence: true
 end
