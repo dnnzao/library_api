@@ -24,12 +24,18 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = Category.new(category_params)
+    existing_category = Category.find_by(name: category_params[:name])
 
-    if @category.save
-      render json: @category, status: :created
+    if existing_category
+      render json: { message: "This category is already registered in the database", category_info: existing_category.slice(:name) }, status: :unprocessable_entity
     else
-      render json: @category.errors, status: :unprocessable_entity
+      @category = Category.new(category_params)
+
+      if @category.save
+        render json: @category, status: :created
+      else
+        render json: @category.errors, status: :unprocessable_entity
+      end
     end
   end
 

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   # GET methods
   get 'up' => 'rails/health#show', as: :rails_health_check
   get 'list_users', to: 'users#list_users'
+  get 'list_books', to: 'books#list_books'
 
   # POST methods
   post '/users/info', to: 'users#info'

@@ -24,12 +24,18 @@ class PublishersController < ApplicationController
   end
 
   def create
-    @publisher = Publisher.new(publisher_params)
+    existing_publisher = Publisher.find_by(name: publisher_params[:name])
 
-    if @publisher.save
-      render json: @publisher, status: :created
+    if existing_publisher
+      render json: { message: "This publisher is already registered in the database", publisher_info: existing_publisher.slice(:name) }, status: :unprocessable_entity
     else
-      render json: @publisher.errors, status: :unprocessable_entity
+      @publisher = Publisher.new(publisher_params)
+
+      if @publisher.save
+        render json: @publisher, status: :created
+      else
+        render json: @publisher.errors, status: :unprocessable_entity
+      end
     end
   end
 

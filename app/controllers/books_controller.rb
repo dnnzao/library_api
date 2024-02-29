@@ -52,6 +52,12 @@ class BooksController < ApplicationController
     end
   end
 
+  # GET /list_books - all books
+  def list_books
+    @books = Book.all
+    render json: @books
+  end
+
   def create
     existing_book = Book.includes(:category, :publisher).find_by(book_name: book_params[:book_name], author: book_params[:author], category_id: book_params[:category_id])
 
