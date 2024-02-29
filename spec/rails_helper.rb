@@ -17,7 +17,6 @@ end
 RSpec.configure do |config|
   config.include RequestSpecHelper, type: :request
   config.include AuthHelpers, type: :request
-  #config.action_mailer.default_url_options = { host: 'http://127.0.0.1:1080/' }
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)

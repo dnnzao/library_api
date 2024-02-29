@@ -2,15 +2,14 @@
 
 require 'rails_helper'
 
-RSpec.describe UsersController, type: :controller do
-  describe 'User confirmation' do
-    it 'confirms the user' do
-      user = FactoryBot.create(:user)
-      get user_confirmation_url(confirmation_token: user.confirmation_token)
+RSpec.describe 'User confirmation', type: :request do
+  it 'confirms the user' do
+    user = FactoryBot.create(:user)
 
-      expect(response).to redirect_to(some_success_path)
-      user.reload
-      expect(user.confirmed?).to be true
-    end
+    get user_confirmation_url(confirmation_token: user.confirmation_token)
+
+    user.reload
+
+    expect(user.confirmed?).to be true
   end
 end

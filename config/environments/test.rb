@@ -20,7 +20,6 @@ Rails.application.configure do
     port: 1025
   }
 
-
   config.enable_reloading = false
 
   config.eager_load = ENV['CI'].present?
