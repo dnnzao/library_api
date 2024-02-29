@@ -7,6 +7,20 @@
 # Copyright (c) 2024 Your Company
 #
 
+# BooksController - This controller will handle displaying a list with all books, search of books based on:
+#  - book_name;
+#  - category_id;
+#  - publisher_id;
+#  - publisher_id AND category_id;
+
+#   CREATE:   A new is created if the author and name are different from one already registered.
+#   DELETE:   Books are deleted based on id
+#   DISPLAY:  a book's information will be displayed based on id search, displaying all its information.
+#   UPDATE:   Books are updated based on id. 
+
+#   The CREATE / UPDATE / DELETE operations are only for authorized users,
+#   (users that registered, and confirmed their email), and the user must be logged in.
+
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show update destroy]
   before_action :authenticate_user!, only: %i[show create update destroy]
