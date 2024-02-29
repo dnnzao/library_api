@@ -53,12 +53,26 @@ class BooksController < ApplicationController
   end
 
   def create
-    @book = Book.new(book_params)
+    existing_book = Book.includes(:category, :publisher).find_by(book_name: book_params[:book_name], author: book_params[:author], category_id: book_params[:category_id])
 
-    if @book.save
-      render json: @book, status: :created
+    if existing_book
+      book_info = {
+        book_name: existing_book.book_name,
+        author: existing_book.author,
+        category: existing_book.category&.name,
+        publisher: existing_book.publisher&.name,
+        published_date: existing_book.published_date
+      }
+
+      render json: { message: "This book is already registered in the database", book_info: book_info }, status: :unprocessable_entity
     else
-      render json: @book.errors, status: :unprocessable_entity
+      @book = Book.new(book_params)
+
+      if @book.save
+        render json: @book, status: :created
+      else
+        render json: @book.errors, status: :unprocessable_entity
+      end
     end
   end
 
