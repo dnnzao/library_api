@@ -2,31 +2,31 @@
 
 require 'rails_helper'
 
-RSpec.describe CategoriesController, type: :request do
+RSpec.describe 'Categories', type: :request do
   let!(:user) { create(:user) }
-  let!(:valid_category_attributes) { attributes_for(:category) }
-  let!(:invalid_category_attributes) { attributes_for(:category, :invalid_category) }
-  let!(:auth_headers) { user.create_new_auth_token }
-
-  def login_user
-    before(:all) do
-      user.confirm!
-      sign_in user
-    end
-  end
 
   describe 'POST /categories' do
-    context 'with valid parameters' do
-      it 'creates a new Book' do
-        post categories_path, params: valid_category_attributes.to_json, headers: auth_headers.merge({'Content-Type' => 'application/json'})
+    context 'when user is logged in' do
+      it 'creates a new Category' do
+        auth_headers = authenticate_user(user)
+        category_params = { name: 'RSpec Category' }
+        post categories_path, params: { category: category_params }.to_json, headers: auth_headers.merge({'Content-Type' => 'application/json'})
         expect(response).to have_http_status(:created)
+      end
+
+      it 'Category does not have valid parameters' do
+        auth_headers = authenticate_user(user)
+        category_params = { name: '' }
+        post categories_path, params: { category: category_params }.to_json, headers: auth_headers.merge({'Content-Type' => 'application/json'})
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
 
-    context 'with invalid parameters' do
-      it 'does not create a new Book' do
-        post categories_path, params: invalid_category_attributes.to_json, headers: auth_headers.merge({'Content-Type' => 'application/json'})
-        expect(response).to have_http_status(:unprocessable_entity)
+    context 'when user is logged NOT in' do
+      it 'does NOT creates a new category' do
+        category_params = { name: 'RSpec Category' }
+        post categories_path, params: { category: category_params }.to_json
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end

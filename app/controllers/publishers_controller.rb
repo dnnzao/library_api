@@ -11,7 +11,7 @@
 
 class PublishersController < ApplicationController
   before_action :set_publisher, only: %i[show update destroy]
-  # before_action :authenticate_user!, only: %i[create update destroy]
+  before_action :authenticate_user!, only: %i[create update destroy]
 
   def index
     @publishers = Publisher.all

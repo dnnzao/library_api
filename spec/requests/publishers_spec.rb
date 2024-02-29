@@ -2,31 +2,31 @@
 
 require 'rails_helper'
 
-RSpec.describe CategoriesController, type: :request do  
+RSpec.describe 'Publishers', type: :request do
   let!(:user) { create(:user) }
-  let!(:valid_publisher_attributes) { attributes_for(:publisher) }
-  let!(:invalid_publisher_attributes) { attributes_for(:publisher, :invalid_publisher) }
-  let!(:auth_headers) { user.create_new_auth_token }
-
-  def login_user
-    before(:all) do
-      user.confirm!
-      sign_in user
-    end
-  end
 
   describe 'POST /publishers' do
-    context 'with valid parameters' do
-      it 'creates a new Book' do
-        post publishers_path, params: valid_publisher_attributes.to_json, headers: auth_headers.merge({'Content-Type' => 'application/json'})
+    context 'when user is logged in' do
+      it 'creates a new Publisher' do
+        auth_headers = authenticate_user(user)
+        publisher_params = { name: 'RSpec Publisher' }
+        post publishers_path, params: { publisher: publisher_params }.to_json, headers: auth_headers.merge({'Content-Type' => 'application/json'})
         expect(response).to have_http_status(:created)
+      end
+
+      it 'Publisher does not have valid parameters' do
+        auth_headers = authenticate_user(user)
+        publisher_params = { name: '' }
+        post publishers_path, params: { publisher: publisher_params }.to_json, headers: auth_headers.merge({'Content-Type' => 'application/json'})
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
 
-    context 'with invalid parameters' do
-      it 'does not create a new Book' do
-        post publishers_path, params: invalid_publisher_attributes.to_json, headers: auth_headers.merge({'Content-Type' => 'application/json'})
-        expect(response).to have_http_status(:unprocessable_entity)
+    context 'when user is logged NOT in' do
+      it 'does NOT creates a new publisher' do
+        publisher_params = { name: 'RSpec Publisher' }
+        post publishers_path, params: { publisher: publisher_params }.to_json
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end
