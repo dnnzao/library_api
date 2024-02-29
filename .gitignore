@@ -4,30 +4,32 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
-# Ignore bundler config.
+# Existing patterns
 /.bundle
-
-# Ignore all environment files (except templates).
 /.env*
 !/.env*.erb
-
-# Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
 !/log/.keep
 !/tmp/.keep
-
-# Ignore pidfiles, but keep the directory.
 /tmp/pids/*
 !/tmp/pids/
 !/tmp/pids/.keep
-
-# Ignore storage (uploaded files in development and any SQLite databases).
 /storage/*
 !/storage/.keep
 /tmp/storage/*
 !/tmp/storage/
 !/tmp/storage/.keep
-
-# Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Additions to ignore the vscode-root cache and other specific patterns
+.vscode-root/
+
+# General patterns to ignore other unwanted files
+*.log
+*.tmp
+*.bak
+*.swp
+*~
+.DS_Store
+Thumbs.db
