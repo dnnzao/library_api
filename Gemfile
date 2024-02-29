@@ -32,17 +32,12 @@ gem 'railties', '7.1.3'
 gem 'rbs'
 gem 'solargraph', group: %i[development test]
 gem 'capybara'
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[jruby]
-
-# Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
 group :development, :test do
   gem 'factory_bot_rails'
   gem 'rspec-rails'
-#  gem 'factory_girl'
 end
 
 group :test do

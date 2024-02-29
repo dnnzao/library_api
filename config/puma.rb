@@ -25,10 +25,8 @@ end
 
 worker_timeout 3600 if ENV.fetch('RAILS_ENV', 'development') == 'development'
 
-# Use default HTTP port (80)
 port ENV.fetch('PORT', 3000)
 
-# Define a method to configure SSL binding
 def configure_ssl_binding(port)
   {
     key: File.expand_path('~') + '/localhost.key',
@@ -36,7 +34,6 @@ def configure_ssl_binding(port)
   }
 end
 
-# For development and test environments, enable SSL on port 443
 if Rails.env.development? || Rails.env.test?
   ssl_bind 'localhost', '3001', configure_ssl_binding('3001')
 end

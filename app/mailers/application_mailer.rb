@@ -10,6 +10,6 @@
 #
 
 class ApplicationMailer < ActionMailer::Base
-  default from: 'deniojr@gmail.com'
+  default from: 'example@email.com'
   layout 'mailer'
 end
