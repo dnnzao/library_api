@@ -22,6 +22,8 @@ Rails.application.configure do
 
   config.enable_reloading = false
 
+  config.log_level = :debug
+
   config.eager_load = ENV['CI'].present?
 
   config.public_file_server.enabled = true

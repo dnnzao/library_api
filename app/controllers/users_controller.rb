@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Filename: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/app/controllers/users_controller.rb
+# Filename: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/app/controllers/user_controller.rb
 # Path: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/app/controllers
 # Created Date: Thursday, February 1st 2024, 4:02:58 pm
 # Author: Dênio Barbosa Júnior
@@ -12,18 +12,18 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[show update destroy]
 
   def index
-    @users = User.all
-    render json: @users
+    @user = User.all
+    render json: @user
   end
 
   def show
     render json: @user
   end
 
-  # GET /list_users - all user data
+  # GET /list_user - all user data
   def list_users
-    @users = User.all
-    render json: @users
+    @user = User.all
+    render json: @user
   end
 
   # POST /auth
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /users/1
+  # PATCH/PUT /user/1
   def update
     if @user.update(user_params)
       render json: @user
@@ -48,18 +48,21 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
+  # DELETE /user/1
   def destroy
     @user.destroy
     head :no_content
   end
 
-  # POST /users/info - posts user: name, email, password.
+  # POST /user/info - retrieve user information by email.
   def info
-    users_info = User.all.map do |_user|
-      user_params.transform_keys(&:to_sym).slice(:name, :email, :password, :password_confirmation)
+    user = User.find_by(email: params[:email])
+
+    if user
+      render json: { id: user.id, name: user.name, email: user.email }
+    else
+      render json: { error: 'User not found' }, status: :not_found
     end
-    render json: users_info
   end
 
   private

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 #
 # Filename: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/app/controllers/books_controller.rb
 # Path: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/app/controllers
@@ -11,7 +9,7 @@
 
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show update destroy]
-  before_action :authenticate_user!, only: %i[create update destroy]
+  before_action :authenticate_user!, only: %i[show create update destroy]
 
   def index
     category_ids = params[:categories] || []
@@ -45,8 +43,9 @@ class BooksController < ApplicationController
   end
 
   def show
+    @book = Book.find(params[:id])
     if @book
-      render json: @book, include: %i[category publisher]
+      render json: @book
     else
       render json: { error: 'Book not found' }, status: :not_found
     end
@@ -95,8 +94,7 @@ class BooksController < ApplicationController
   end
 
   def destroy
-    if @book
-      @book.destroy
+    if @book.destroy!
       head :no_content
     else
       render json: { error: 'Book not found' }, status: :not_found
@@ -106,7 +104,8 @@ class BooksController < ApplicationController
   private
 
   def set_book
-    @book = Book.find_by(id: params[:id])
+    @book = Book.find(params[:id])
+    puts @book
   end
 
   def book_params

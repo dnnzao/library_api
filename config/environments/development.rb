@@ -23,6 +23,8 @@ Rails.application.configure do
 
   config.auth_redirect_url = 'http://localhost:3000/auth/success'
 
+  config.log_level = :debug
+
   config.enable_reloading = true
 
   config.eager_load = false
