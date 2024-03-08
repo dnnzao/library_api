@@ -1,4 +1,3 @@
-#
 # Filename: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/app/controllers/books_controller.rb
 # Path: /home/deniojr/Desktop/ruby_on_rails_studies/library_api/app/controllers
 # Created Date: Thursday, February 1st 2024, 4:02:58 pm
@@ -16,14 +15,14 @@
 #   CREATE:   A new is created if the author and name are different from one already registered.
 #   DELETE:   Books are deleted based on id
 #   DISPLAY:  a book's information will be displayed based on id search, displaying all its information.
-#   UPDATE:   Books are updated based on id. 
+#   UPDATE:   Books are updated based on id.
 
 #   The CREATE / UPDATE / DELETE operations are only for authorized users,
 #   (users that registered, and confirmed their email), and the user must be logged in.
 
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show update destroy]
-  before_action :authenticate_user!, only: %i[show create update destroy]
+  before_action :authenticate_user!, only: %i[create update destroy]
 
   def index
     category_ids = params[:categories] || []
@@ -72,6 +71,7 @@ class BooksController < ApplicationController
   end
 
   def create
+    authorize @book
     existing_book = Book.includes(:category, :publisher).find_by(book_name: book_params[:book_name], author: book_params[:author], category_id: book_params[:category_id])
 
     if existing_book
@@ -96,6 +96,9 @@ class BooksController < ApplicationController
   end
 
   def update
+    puts "User name: #{current_user.name} | User email: #{current_user.email} | User admin status: #{current_user.is_admin?}"
+    puts "Book details: #{@book.inspect}"
+    authorize @book
     if @book
       if @book.update(book_params)
         render json: @book
@@ -108,6 +111,7 @@ class BooksController < ApplicationController
   end
 
   def destroy
+    authorize @book
     if @book.destroy!
       head :no_content
     else

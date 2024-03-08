@@ -49,3 +49,5 @@ group :development do
 end
 
 gem "activesupport", "~> 7.1"
+
+gem "pundit", "~> 2.3"

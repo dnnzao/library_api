@@ -17,5 +17,9 @@ class User < ApplicationRecord
 
   include DeviseTokenAuth::Concerns::User
 
+  def is_admin?
+    self.is_admin
+  end
+
   validates :name, presence: true
 end

@@ -8,7 +8,7 @@
 # Copyright (c) 2024 Your Company
 
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[create update destroy]
   before_action :set_user, only: %i[show update destroy]
 
   def index
@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     render json: @user
   end
 
-  # GET /list_user - all user data
+  # GET /list_users - all user data
   def list_users
     @user = User.all
     render json: @user
